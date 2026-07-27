@@ -63,7 +63,10 @@ seed-operational-data:
 	uv run --project backend python -m fraud_api.db.seed
 
 smoke-score:
-	@echo "Smoke scoring becomes available with User Story 1."
+	curl --fail-with-body --silent --show-error \
+		-H 'Content-Type: application/json' \
+		--data @tests/fixtures/transaction.json \
+		http://localhost:$${API_PORT:-8000}/api/v1/transactions
 
 benchmark:
 	uv run --project pipelines fraud-pipelines benchmark --seed $(or $(SEED),20260727) --rows $(or $(ROWS),1000000)

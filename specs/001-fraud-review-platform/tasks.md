@@ -65,26 +65,26 @@ transactions; verify terminal outcomes and database counts.
 
 ### Tests
 
-- [ ] T026 [P] [US1] Add transaction validation and serialization tests in `backend/tests/unit/test_transaction_schemas.py`
-- [ ] T027 [P] [US1] Add score band, threshold boundary, and explanation mapping tests in `backend/tests/unit/test_scoring.py`
-- [ ] T028 [P] [US1] Add POST and GET transaction contract tests in `backend/tests/contract/test_transactions.py`
-- [ ] T029 [P] [US1] Add idempotency, conflicting-payload, model-unavailable, and atomicity tests in `backend/tests/integration/test_transaction_ingestion.py`
-- [ ] T030 [P] [US1] Add offline/online feature parity tests using golden fixtures in `backend/tests/integration/test_feature_parity.py`
+- [X] T026 [P] [US1] Add transaction validation and serialization tests in `backend/tests/unit/test_transaction_schemas.py`
+- [X] T027 [P] [US1] Add score band, threshold boundary, and explanation mapping tests in `backend/tests/unit/test_scoring.py`
+- [X] T028 [P] [US1] Add POST and GET transaction contract tests in `backend/tests/contract/test_transactions.py`
+- [X] T029 [P] [US1] Add idempotency, conflicting-payload, model-unavailable, and atomicity tests in `backend/tests/integration/test_transaction_ingestion.py`
+- [X] T030 [P] [US1] Add offline/online feature parity tests using golden fixtures in `backend/tests/integration/test_feature_parity.py`
 
 ### Implementation
 
-- [ ] T031 [P] [US1] Implement account, merchant, transaction, feature snapshot, model version, fraud score, and alert tables in `backend/src/fraud_api/db/models.py`
-- [ ] T032 [US1] Create the initial operational schema migration in `backend/alembic/versions/0001_scoring_core.py`
-- [ ] T033 [P] [US1] Implement strict transaction input and scoring output schemas in `backend/src/fraud_api/schemas/transactions.py`
-- [ ] T034 [P] [US1] Implement scalar online feature transformations in `backend/src/fraud_api/features/online.py`
-- [ ] T035 [P] [US1] Implement versioned XGBoost artifact integrity checks and loading in `backend/src/fraud_api/models/loader.py`
-- [ ] T036 [US1] Implement score probability, risk bands, thresholding, and contribution extraction in `backend/src/fraud_api/services/scoring.py`
-- [ ] T037 [US1] Implement idempotent transaction persistence and payload conflict detection in `backend/src/fraud_api/repositories/transactions.py`
-- [ ] T038 [US1] Implement atomic transaction, feature snapshot, score, and alert orchestration in `backend/src/fraud_api/services/ingestion.py`
-- [ ] T039 [US1] Implement POST and GET transaction routes from the OpenAPI contract in `backend/src/fraud_api/api/routes/transactions.py`
-- [ ] T040 [US1] Add sanitized scoring and failure events to structured logs in `backend/src/fraud_api/services/ingestion.py`
-- [ ] T041 [US1] Add deterministic operational account and merchant seeding in `backend/src/fraud_api/db/seed.py`
-- [ ] T042 [US1] Add a reproducible request fixture and idempotency smoke command in `tests/fixtures/transaction.json`
+- [X] T031 [P] [US1] Implement account, merchant, transaction, feature snapshot, model version, fraud score, and alert tables in `backend/src/fraud_api/db/models.py`
+- [X] T032 [US1] Create the initial operational schema migration in `backend/alembic/versions/0001_scoring_core.py`
+- [X] T033 [P] [US1] Implement strict transaction input and scoring output schemas in `backend/src/fraud_api/schemas/transactions.py`
+- [X] T034 [P] [US1] Implement scalar online feature transformations in `backend/src/fraud_api/features/online.py`
+- [X] T035 [P] [US1] Implement versioned XGBoost artifact integrity checks and loading in `backend/src/fraud_api/models/loader.py`
+- [X] T036 [US1] Implement score probability, risk bands, thresholding, and contribution extraction in `backend/src/fraud_api/services/scoring.py`
+- [X] T037 [US1] Implement idempotent transaction persistence and payload conflict detection in `backend/src/fraud_api/repositories/transactions.py`
+- [X] T038 [US1] Implement atomic transaction, feature snapshot, score, and alert orchestration in `backend/src/fraud_api/services/ingestion.py`
+- [X] T039 [US1] Implement POST and GET transaction routes from the OpenAPI contract in `backend/src/fraud_api/api/routes/transactions.py`
+- [X] T040 [US1] Add sanitized scoring and failure events to structured logs in `backend/src/fraud_api/services/ingestion.py`
+- [X] T041 [US1] Add deterministic operational account and merchant seeding in `backend/src/fraud_api/db/seed.py`
+- [X] T042 [US1] Add a reproducible request fixture and idempotency smoke command in `tests/fixtures/transaction.json`
 
 **Checkpoint**: User Story 1 is independently runnable and meets SC-001 and SC-002. This is the
 first deployable API MVP.

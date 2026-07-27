@@ -1,0 +1,13 @@
+{
+  "id": "42b45983-a29d-49f4-8582-7e31cdde30b2",
+  "eventTime": "2026-07-27T14:30:00Z",
+  "accountId": "2a9e1d0d-8682-5373-b938-5ec1ba3ce172",
+  "merchantId": "b2e155fd-19c2-561c-8f76-6c384c62c5ae",
+  "amount": "800.00",
+  "currency": "USD",
+  "channel": "ecommerce",
+  "country": "GB",
+  "region": "LND",
+  "deviceId": "device_demo_001",
+  "ipHash": "0123456789abcdef0123456789abcdef"
+}
