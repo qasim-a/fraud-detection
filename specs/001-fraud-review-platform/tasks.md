@@ -199,7 +199,7 @@ it when this phase completes.
 - [X] T089 Add benchmark result schema and interpretation guidance in `docs/benchmarking.md`
 - [X] T090 Add architecture, data-flow, model-card, limitations, and troubleshooting documentation in `README.md`
 - [X] T091 Add model-card generation with dataset, metrics, threshold, intended use, and limitations in `pipelines/src/fraud_pipelines/training/model_card.py`
-- [ ] T092 Run every command in `specs/001-fraud-review-platform/quickstart.md` and record verified output in `docs/verification.md`
+- [X] T092 Run every command in `specs/001-fraud-review-platform/quickstart.md` and record verified output in `docs/verification.md`
 - [X] T093 Audit logs, fixtures, Git history, and artifacts for secrets or identifying financial data in `docs/security-audit.md`
 - [X] T094 Reconcile implementation against all requirements and acceptance scenarios in `specs/001-fraud-review-platform/checklists/implementation.md`
 

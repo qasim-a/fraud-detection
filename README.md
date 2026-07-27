@@ -105,7 +105,7 @@ lower; they do not prove a cause or establish that fraud occurred.
   the API container if its mounted artifact has not refreshed.
 - Spark fails to launch: confirm Java 17 with `java -version` and Python 3.12 with
   `python --version`; reduce `SPARK_SHUFFLE_PARTITIONS` or the row count on constrained machines.
-- Port 5432, 8000, or 5173 is occupied: change the matching value in the ignored `.env` file.
+- Port 5433, 8000, or 5173 is occupied: change the matching value in the ignored `.env` file.
 - Browser binaries are absent: run `pnpm --dir frontend exec playwright install chromium`.
 
 ## Data and security policy
