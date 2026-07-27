@@ -1,0 +1,60 @@
+name: fraud-detection
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-fraud_detection}
+      POSTGRES_USER: ${POSTGRES_USER:-fraud_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-development-only}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://fraud_app:local-development-only@postgres:5432/fraud_detection}
+      MODEL_ARTIFACT_PATH: ${MODEL_ARTIFACT_PATH:-/artifacts/models/active/model.json}
+      MODEL_METADATA_PATH: ${MODEL_METADATA_PATH:-/artifacts/models/active/metadata.json}
+      ARTIFACT_ROOT: ${ARTIFACT_ROOT:-/artifacts}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - ./artifacts:/artifacts
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  pipeline:
+    build:
+      context: .
+      dockerfile: infra/docker/pipeline.Dockerfile
+    environment:
+      ARTIFACT_ROOT: ${ARTIFACT_ROOT:-/artifacts}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - ./artifacts:/artifacts
+    profiles: [jobs]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: infra/docker/frontend.Dockerfile
+    environment:
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000/api/v1}
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    depends_on: [api]
+
+volumes:
+  postgres-data:

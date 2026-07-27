@@ -7,6 +7,8 @@ target developer interface and must remain stable or be updated here in the same
 
 - Docker Desktop or Docker Engine with Compose v2
 - `make`
+- Node.js 22 and pnpm
+- `uv`
 - At least 8 GB available memory and 10 GB free disk for the quick demo
 - For running pipelines outside Docker: Python 3.12 and Java 17
 

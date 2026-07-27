@@ -14,16 +14,16 @@ must precede implementation at service boundaries.
 
 **Purpose**: Create reproducible package, frontend, container, and developer-tool foundations.
 
-- [ ] T001 Create the monorepo directories and root project overview in `README.md`
-- [ ] T002 Configure ignored secrets, generated artifacts, caches, and local environments in `.gitignore`
-- [ ] T003 Add documented non-secret runtime configuration defaults in `.env.example`
-- [ ] T004 [P] Initialize the API package and dependency groups in `backend/pyproject.toml`
-- [ ] T005 [P] Initialize the Spark and ML package and dependency groups in `pipelines/pyproject.toml`
-- [ ] T006 [P] Initialize the React TypeScript application and scripts in `frontend/package.json`
-- [ ] T007 [P] Configure Python linting, typing, and pytest defaults in `pyproject.toml`
-- [ ] T008 [P] Configure frontend formatting, linting, testing, and TypeScript in `frontend/eslint.config.js`
-- [ ] T009 Define PostgreSQL, API, pipeline, and frontend container builds in `compose.yaml`
-- [ ] T010 Add stable bootstrap, generation, pipeline, model, test, and benchmark targets in `Makefile`
+- [X] T001 Create the monorepo directories and root project overview in `README.md`
+- [X] T002 Configure ignored secrets, generated artifacts, caches, and local environments in `.gitignore`
+- [X] T003 Add documented non-secret runtime configuration defaults in `.env.example`
+- [X] T004 [P] Initialize the API package and dependency groups in `backend/pyproject.toml`
+- [X] T005 [P] Initialize the Spark and ML package and dependency groups in `pipelines/pyproject.toml`
+- [X] T006 [P] Initialize the React TypeScript application and scripts in `frontend/package.json`
+- [X] T007 [P] Configure Python linting, typing, and pytest defaults in `pyproject.toml`
+- [X] T008 [P] Configure frontend formatting, linting, testing, and TypeScript in `frontend/eslint.config.js`
+- [X] T009 Define PostgreSQL, API, pipeline, and frontend container builds in `compose.yaml`
+- [X] T010 Add stable bootstrap, generation, pipeline, model, test, and benchmark targets in `Makefile`
 
 **Checkpoint**: Dependency installation and placeholder health commands succeed from a clean clone.
 

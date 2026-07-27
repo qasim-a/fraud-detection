@@ -1,0 +1,51 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Node and frontend
+node_modules/
+.pnpm-store/
+frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
+*.log
+
+# Java and Spark
+target/
+*.class
+*.jar
+.gradle/
+metastore_db/
+derby.log
+spark-warehouse/
+
+# Generated platform artifacts
+artifacts/*
+!artifacts/.gitkeep
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.idea/
+.vscode/
+
+# Browser tests
+playwright-report/
+test-results/
