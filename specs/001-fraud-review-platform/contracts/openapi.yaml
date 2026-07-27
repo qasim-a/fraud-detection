@@ -1,0 +1,439 @@
+openapi: 3.1.0
+info:
+  title: Fraud Review API
+  version: 0.1.0
+  description: Contract for the local fraud scoring and analyst-review MVP.
+servers:
+  - url: http://localhost:8000/api/v1
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      responses:
+        "200":
+          description: Service and dependency health
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+  /transactions:
+    post:
+      operationId: scoreTransaction
+      summary: Validate, persist, and score one transaction idempotently
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransactionInput"
+      responses:
+        "200":
+          description: Existing identical transaction result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionResult"
+        "201":
+          description: Transaction accepted and scoring reached a terminal state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionResult"
+        "409":
+          description: Identifier already exists with a different payload
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "422":
+          description: Validation failure
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "503":
+          description: Transaction recorded but scoring model unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionResult"
+  /transactions/{transactionId}:
+    get:
+      operationId: getTransaction
+      parameters:
+        - $ref: "#/components/parameters/TransactionId"
+      responses:
+        "200":
+          description: Transaction and terminal scoring outcome
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionResult"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /alerts:
+    get:
+      operationId: listAlerts
+      parameters:
+        - $ref: "#/components/parameters/Start"
+        - $ref: "#/components/parameters/End"
+        - name: status
+          in: query
+          schema:
+            $ref: "#/components/schemas/AlertStatus"
+        - name: minRisk
+          in: query
+          schema:
+            type: number
+            minimum: 0
+            maximum: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - name: cursor
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Risk-descending alert page
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlertPage"
+  /alerts/{alertId}:
+    get:
+      operationId: getAlert
+      parameters:
+        - $ref: "#/components/parameters/AlertId"
+      responses:
+        "200":
+          description: Alert, transaction, score, explanation, and history
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlertDetail"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      operationId: updateAlertStatus
+      parameters:
+        - $ref: "#/components/parameters/AlertId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              additionalProperties: false
+              properties:
+                status:
+                  $ref: "#/components/schemas/AlertStatus"
+      responses:
+        "200":
+          description: Updated alert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlertSummary"
+        "409":
+          description: Invalid state transition
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /alerts/{alertId}/decisions:
+    post:
+      operationId: createReviewDecision
+      parameters:
+        - $ref: "#/components/parameters/AlertId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewDecisionInput"
+      responses:
+        "201":
+          description: Append-only review decision recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDecision"
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      parameters:
+        - $ref: "#/components/parameters/Start"
+        - $ref: "#/components/parameters/End"
+      responses:
+        "200":
+          description: Reconciled metrics for an inclusive-start/exclusive-end UTC range
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+  /models/active:
+    get:
+      operationId: getActiveModel
+      responses:
+        "200":
+          description: Active model identity and evaluation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelSummary"
+        "404":
+          $ref: "#/components/responses/NotFound"
+components:
+  parameters:
+    TransactionId:
+      name: transactionId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    AlertId:
+      name: alertId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    Start:
+      name: start
+      in: query
+      required: true
+      description: Inclusive UTC instant
+      schema:
+        type: string
+        format: date-time
+    End:
+      name: end
+      in: query
+      required: true
+      description: Exclusive UTC instant
+      schema:
+        type: string
+        format: date-time
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+  schemas:
+    Health:
+      type: object
+      required: [status, database, model]
+      properties:
+        status: {type: string, enum: [ok, degraded]}
+        database: {type: string, enum: [available, unavailable]}
+        model: {type: string, enum: [available, unavailable]}
+    TransactionInput:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - eventTime
+        - accountId
+        - merchantId
+        - amount
+        - currency
+        - channel
+        - country
+        - region
+        - deviceId
+        - ipHash
+      properties:
+        id: {type: string, format: uuid}
+        eventTime: {type: string, format: date-time}
+        accountId: {type: string, format: uuid}
+        merchantId: {type: string, format: uuid}
+        amount: {type: string, pattern: "^[0-9]+\\.[0-9]{2}$"}
+        currency: {type: string, pattern: "^[A-Z]{3}$"}
+        channel:
+          type: string
+          enum: [card_present, ecommerce, wallet, atm]
+        country: {type: string, pattern: "^[A-Z]{2}$"}
+        region: {type: string, minLength: 1, maxLength: 64}
+        deviceId: {type: string, minLength: 1, maxLength: 128}
+        ipHash: {type: string, minLength: 16, maxLength: 128}
+    TransactionResult:
+      type: object
+      required: [transactionId, status, ingestedAt]
+      properties:
+        transactionId: {type: string, format: uuid}
+        status: {type: string, enum: [scored, scoring_failed]}
+        ingestedAt: {type: string, format: date-time}
+        score: {$ref: "#/components/schemas/FraudScore"}
+        alertId: {type: [string, "null"], format: uuid}
+        failureCode: {type: [string, "null"]}
+    FraudScore:
+      type: object
+      required: [id, probability, riskBand, threshold, modelVersion, featureVersion, scoredAt]
+      properties:
+        id: {type: string, format: uuid}
+        probability: {type: number, minimum: 0, maximum: 1}
+        riskBand: {type: string, enum: [low, medium, high, critical]}
+        threshold: {type: number, minimum: 0, maximum: 1}
+        modelVersion: {type: string}
+        featureVersion: {type: string}
+        scoredAt: {type: string, format: date-time}
+        explanationStatus: {type: string, enum: [available, unavailable]}
+        factors:
+          type: array
+          maxItems: 10
+          items: {$ref: "#/components/schemas/ExplanationFactor"}
+    ExplanationFactor:
+      type: object
+      required: [feature, label, direction, contribution]
+      properties:
+        feature: {type: string}
+        label: {type: string}
+        direction: {type: string, enum: [higher, lower]}
+        contribution: {type: number}
+    AlertStatus:
+      type: string
+      enum: [open, in_review, closed]
+    AlertSummary:
+      type: object
+      required: [id, transactionId, probability, riskBand, amount, currency, status, createdAt]
+      properties:
+        id: {type: string, format: uuid}
+        transactionId: {type: string, format: uuid}
+        probability: {type: number}
+        riskBand: {type: string, enum: [low, medium, high, critical]}
+        amount: {type: string}
+        currency: {type: string}
+        merchantRef: {type: string}
+        channel: {type: string}
+        country: {type: string}
+        status: {$ref: "#/components/schemas/AlertStatus"}
+        createdAt: {type: string, format: date-time}
+    AlertPage:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: {$ref: "#/components/schemas/AlertSummary"}
+        nextCursor: {type: [string, "null"]}
+    AlertDetail:
+      allOf:
+        - $ref: "#/components/schemas/AlertSummary"
+        - type: object
+          required: [transaction, score, history, explanationDisclaimer]
+          properties:
+            transaction: {$ref: "#/components/schemas/TransactionInput"}
+            score: {$ref: "#/components/schemas/FraudScore"}
+            history:
+              type: array
+              items: {$ref: "#/components/schemas/HistoryEvent"}
+            decisions:
+              type: array
+              items: {$ref: "#/components/schemas/ReviewDecision"}
+            explanationDisclaimer:
+              type: string
+              const: Model factors indicate statistical influence, not proof or cause of fraud.
+    ReviewDecisionInput:
+      type: object
+      additionalProperties: false
+      required: [outcome]
+      properties:
+        outcome:
+          type: string
+          enum: [confirmed_fraud, legitimate, needs_review]
+        note: {type: [string, "null"], maxLength: 2000}
+    ReviewDecision:
+      allOf:
+        - $ref: "#/components/schemas/ReviewDecisionInput"
+        - type: object
+          required: [id, alertId, reviewerRef, createdAt]
+          properties:
+            id: {type: string, format: uuid}
+            alertId: {type: string, format: uuid}
+            reviewerRef: {type: string}
+            createdAt: {type: string, format: date-time}
+    HistoryEvent:
+      type: object
+      required: [id, eventType, actorRef, createdAt]
+      properties:
+        id: {type: string, format: uuid}
+        eventType: {type: string, enum: [created, status_changed, decision_recorded, reopened]}
+        fromStatus: {anyOf: [{$ref: "#/components/schemas/AlertStatus"}, {type: "null"}]}
+        toStatus: {anyOf: [{$ref: "#/components/schemas/AlertStatus"}, {type: "null"}]}
+        actorRef: {type: string}
+        createdAt: {type: string, format: date-time}
+    DashboardSummary:
+      type: object
+      required: [range, totals, riskBands, reviewOutcomes, series]
+      properties:
+        range:
+          type: object
+          required: [start, end]
+          properties:
+            start: {type: string, format: date-time}
+            end: {type: string, format: date-time}
+        totals:
+          type: object
+          required: [transactions, alerts, amountAtRisk]
+          properties:
+            transactions: {type: integer, minimum: 0}
+            alerts: {type: integer, minimum: 0}
+            amountAtRisk: {type: string}
+        riskBands: {type: object, additionalProperties: {type: integer, minimum: 0}}
+        reviewOutcomes: {type: object, additionalProperties: {type: integer, minimum: 0}}
+        series:
+          type: array
+          items:
+            type: object
+            required: [bucket, transactions, alerts]
+            properties:
+              bucket: {type: string, format: date-time}
+              transactions: {type: integer, minimum: 0}
+              alerts: {type: integer, minimum: 0}
+    ModelSummary:
+      type: object
+      required: [version, featureVersion, datasetId, threshold, metrics, activatedAt]
+      properties:
+        version: {type: string}
+        featureVersion: {type: string}
+        datasetId: {type: string}
+        threshold: {type: number, minimum: 0, maximum: 1}
+        metrics:
+          type: object
+          required: [precision, recall, prAuc, truePositive, falsePositive, trueNegative, falseNegative, alertVolume]
+          properties:
+            precision: {type: number, minimum: 0, maximum: 1}
+            recall: {type: number, minimum: 0, maximum: 1}
+            prAuc: {type: number, minimum: 0, maximum: 1}
+            truePositive: {type: integer, minimum: 0}
+            falsePositive: {type: integer, minimum: 0}
+            trueNegative: {type: integer, minimum: 0}
+            falseNegative: {type: integer, minimum: 0}
+            alertVolume: {type: integer, minimum: 0}
+        activatedAt: {type: string, format: date-time}
+    Problem:
+      type: object
+      required: [type, title, status, detail]
+      properties:
+        type: {type: string, format: uri-reference}
+        title: {type: string}
+        status: {type: integer}
+        detail: {type: string}
+        errors:
+          type: array
+          items:
+            type: object
+            required: [field, message]
+            properties:
+              field: {type: string}
+              message: {type: string}
