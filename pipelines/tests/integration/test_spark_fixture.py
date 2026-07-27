@@ -1,4 +1,7 @@
+import pytest
 from pyspark.sql import SparkSession
+
+pytestmark = pytest.mark.integration
 
 
 def test_local_spark_session_executes_dataframe_job(spark: SparkSession) -> None:

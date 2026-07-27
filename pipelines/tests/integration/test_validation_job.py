@@ -1,8 +1,11 @@
 from datetime import UTC, datetime
 from decimal import Decimal
 
+import pytest
 from fraud_pipelines.jobs.validation import validate_transactions
 from fraud_pipelines.schemas.raw import ACCOUNT_SCHEMA, MERCHANT_SCHEMA, TRANSACTION_SCHEMA
+
+pytestmark = pytest.mark.integration
 
 
 def test_validation_quarantines_duplicates_and_bad_references(spark) -> None:

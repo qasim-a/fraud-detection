@@ -12,6 +12,8 @@ from fraud_api.schemas.alerts import ReviewDecisionInput
 from fraud_api.schemas.transactions import TransactionInput
 from fraud_api.services.ingestion import IngestionService
 from fraud_api.services.reviews import record_decision
+
+pytestmark = pytest.mark.integration
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 

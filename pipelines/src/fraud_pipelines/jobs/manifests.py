@@ -28,13 +28,20 @@ def write_feature_dataset(
     digest_row = (
         frame.select(row_json.alias("row_json"))
         .select(F.sha2("row_json", 256).alias("sha256"), F.xxhash64("row_json").alias("hash64"))
-        .agg(F.min("sha256"), F.max("sha256"), F.sum("hash64"), F.count("sha256"))
+        .agg(
+            F.min("sha256"),
+            F.max("sha256"),
+            F.sum(F.col("hash64").cast("decimal(38,0)")),
+            F.count("sha256"),
+        )
         .first()
     )
     if digest_row is None:
         raise ValueError("Cannot fingerprint an empty feature dataset")
     content_fingerprint = hashlib.sha256(
-        json.dumps([digest_row[0], digest_row[1], digest_row[2], digest_row[3]]).encode()
+        json.dumps(
+            [digest_row[0], digest_row[1], str(digest_row[2]), digest_row[3]]
+        ).encode()
     ).hexdigest()
     identity_input = {
         "source": source_manifest["dataset_id"],

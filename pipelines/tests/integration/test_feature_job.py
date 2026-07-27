@@ -1,8 +1,11 @@
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 
+import pytest
 from fraud_pipelines.jobs.features import build_features
 from fraud_pipelines.schemas.raw import ACCOUNT_SCHEMA, MERCHANT_SCHEMA, TRANSACTION_SCHEMA
+
+pytestmark = pytest.mark.integration
 
 
 def test_features_use_only_prior_account_history(spark) -> None:

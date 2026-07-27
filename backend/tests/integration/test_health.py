@@ -1,6 +1,7 @@
 from collections.abc import Generator
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
 from fraud_api.core.config import Settings, get_settings
 from fraud_api.db.session import get_session
@@ -9,6 +10,8 @@ from pydantic import SecretStr
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session
+
+pytestmark = pytest.mark.integration
 
 
 class UnavailableSession:

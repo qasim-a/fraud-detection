@@ -7,6 +7,8 @@ import pytest
 from fraud_api.features.online import OnlineFeatureContext, build_online_features
 from fraud_api.schemas.transactions import TransactionInput
 
+pytestmark = pytest.mark.integration
+
 
 @pytest.mark.parametrize("case_index", [0, 1])
 def test_online_features_match_golden_batch_values(case_index: int) -> None:

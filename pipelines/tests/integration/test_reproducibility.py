@@ -1,9 +1,12 @@
 from datetime import UTC, datetime
 from decimal import Decimal
 
+import pytest
 from fraud_pipelines.jobs.features import build_features
 from fraud_pipelines.jobs.manifests import write_feature_dataset
 from fraud_pipelines.schemas.raw import ACCOUNT_SCHEMA, MERCHANT_SCHEMA, TRANSACTION_SCHEMA
+
+pytestmark = pytest.mark.integration
 
 
 def test_repeated_feature_writes_have_same_identity_and_values(spark, tmp_path) -> None:

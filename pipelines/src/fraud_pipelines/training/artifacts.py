@@ -10,6 +10,7 @@ from typing import Any
 from xgboost import XGBClassifier
 
 from fraud_pipelines.features.definitions import FEATURE_VERSION
+from fraud_pipelines.training.model_card import write_model_card
 
 
 def export_artifact(
@@ -33,6 +34,7 @@ def export_artifact(
         "activated_at": now,
     }
     (output / "metadata.json").write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n")
+    write_model_card(output / "MODEL_CARD.md", metadata)
     return metadata
 
 

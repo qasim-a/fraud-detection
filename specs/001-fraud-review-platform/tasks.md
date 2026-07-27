@@ -192,16 +192,16 @@ it when this phase completes.
 
 **Purpose**: Prove the complete system, document the result, and support honest scale claims.
 
-- [ ] T085 Add the highest-risk review browser journey in `tests/e2e/fraud-review.spec.ts`
-- [ ] T086 [P] Add service and pipeline container health checks in `compose.yaml`
-- [ ] T087 [P] Add dashboard accessibility and keyboard-navigation verification in `frontend/tests/accessibility.spec.ts`
-- [ ] T088 Add the one-million-row benchmark runner and environment capture in `pipelines/src/fraud_pipelines/benchmark.py`
-- [ ] T089 Add benchmark result schema and interpretation guidance in `docs/benchmarking.md`
-- [ ] T090 Add architecture, data-flow, model-card, limitations, and troubleshooting documentation in `README.md`
-- [ ] T091 Add model-card generation with dataset, metrics, threshold, intended use, and limitations in `pipelines/src/fraud_pipelines/training/model_card.py`
+- [X] T085 Add the highest-risk review browser journey in `tests/e2e/fraud-review.spec.ts`
+- [X] T086 [P] Add service and pipeline container health checks in `compose.yaml`
+- [X] T087 [P] Add dashboard accessibility and keyboard-navigation verification in `frontend/tests/accessibility.spec.ts`
+- [X] T088 Add the one-million-row benchmark runner and environment capture in `pipelines/src/fraud_pipelines/benchmark.py`
+- [X] T089 Add benchmark result schema and interpretation guidance in `docs/benchmarking.md`
+- [X] T090 Add architecture, data-flow, model-card, limitations, and troubleshooting documentation in `README.md`
+- [X] T091 Add model-card generation with dataset, metrics, threshold, intended use, and limitations in `pipelines/src/fraud_pipelines/training/model_card.py`
 - [ ] T092 Run every command in `specs/001-fraud-review-platform/quickstart.md` and record verified output in `docs/verification.md`
-- [ ] T093 Audit logs, fixtures, Git history, and artifacts for secrets or identifying financial data in `docs/security-audit.md`
-- [ ] T094 Reconcile implementation against all requirements and acceptance scenarios in `specs/001-fraud-review-platform/checklists/implementation.md`
+- [X] T093 Audit logs, fixtures, Git history, and artifacts for secrets or identifying financial data in `docs/security-audit.md`
+- [X] T094 Reconcile implementation against all requirements and acceptance scenarios in `specs/001-fraud-review-platform/checklists/implementation.md`
 
 ---
 

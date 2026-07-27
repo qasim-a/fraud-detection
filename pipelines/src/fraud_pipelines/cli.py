@@ -6,6 +6,7 @@ import json
 import typer
 from pyspark.sql import SparkSession
 
+from fraud_pipelines.benchmark import run_benchmark
 from fraud_pipelines.config import get_pipeline_settings
 from fraud_pipelines.generation.entities import generate_accounts, generate_merchants
 from fraud_pipelines.generation.transactions import generate_transactions
@@ -156,3 +157,9 @@ def activate_model() -> None:
     root = get_pipeline_settings().model_root
     activate_artifact(root / "candidate", root / "active")
     typer.echo("active")
+
+
+@app.command()
+def benchmark(seed: int = 20260727, rows: int = 1_000_000) -> None:
+    report = run_benchmark(get_pipeline_settings(), seed=seed, rows=rows)
+    typer.echo(json.dumps(report, sort_keys=True))

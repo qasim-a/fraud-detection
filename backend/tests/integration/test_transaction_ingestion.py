@@ -11,6 +11,8 @@ from fraud_api.services.ingestion import IngestionService
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+pytestmark = pytest.mark.integration
+
 
 def transaction_input(account_id: uuid.UUID, merchant_id: uuid.UUID) -> TransactionInput:
     return TransactionInput(

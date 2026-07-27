@@ -36,7 +36,7 @@ test-integration:
 	uv run --project pipelines pytest -m integration pipelines/tests
 
 test-e2e:
-	@echo "E2E tests become available in Phase 7."
+	$(PNPM) --dir frontend exec playwright test
 
 compose-config:
 	docker compose --env-file .env.example config --quiet

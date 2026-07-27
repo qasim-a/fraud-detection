@@ -1,6 +1,7 @@
 import uuid
 from datetime import UTC, datetime
 
+import pytest
 from fraud_api.db.models import AlertRecord, FraudScoreRecord
 from fraud_api.db.review_models import AlertHistoryRecord, ReviewDecisionRecord
 from fraud_api.repositories.alerts import get_alert_detail
@@ -10,6 +11,8 @@ from fraud_api.services.ingestion import IngestionService
 from fraud_api.services.reviews import record_decision, update_alert_status
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
+
+pytestmark = pytest.mark.integration
 
 
 def transaction_input(account_id: uuid.UUID, merchant_id: uuid.UUID) -> TransactionInput:
