@@ -1,0 +1,1 @@
+"""Strict raw Spark schemas."""

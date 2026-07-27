@@ -160,27 +160,27 @@ features, then train and verify the chronological evaluation and artifact metada
 
 ### Tests
 
-- [ ] T067 [P] [US4] Add deterministic generator and fraud-scenario tests in `pipelines/tests/unit/test_generation.py`
-- [ ] T068 [P] [US4] Add Spark schema validation, quarantine, and duplicate tests in `pipelines/tests/integration/test_validation_job.py`
-- [ ] T069 [P] [US4] Add point-in-time feature and no-future-information tests in `pipelines/tests/integration/test_feature_job.py`
-- [ ] T070 [P] [US4] Add repeated-run manifest and Parquet equivalence tests in `pipelines/tests/integration/test_reproducibility.py`
-- [ ] T071 [P] [US4] Add chronological split, metric completeness, and artifact tests in `pipelines/tests/unit/test_training.py`
+- [X] T067 [P] [US4] Add deterministic generator and fraud-scenario tests in `pipelines/tests/unit/test_generation.py`
+- [X] T068 [P] [US4] Add Spark schema validation, quarantine, and duplicate tests in `pipelines/tests/integration/test_validation_job.py`
+- [X] T069 [P] [US4] Add point-in-time feature and no-future-information tests in `pipelines/tests/integration/test_feature_job.py`
+- [X] T070 [P] [US4] Add repeated-run manifest and Parquet equivalence tests in `pipelines/tests/integration/test_reproducibility.py`
+- [X] T071 [P] [US4] Add chronological split, metric completeness, and artifact tests in `pipelines/tests/unit/test_training.py`
 
 ### Implementation
 
-- [ ] T072 [P] [US4] Define strict Spark schemas for accounts, merchants, and transactions in `pipelines/src/fraud_pipelines/schemas/raw.py`
-- [ ] T073 [P] [US4] Implement deterministic account and merchant generation in `pipelines/src/fraud_pipelines/generation/entities.py`
-- [ ] T074 [US4] Implement chronological transaction generation with planted fraud scenarios in `pipelines/src/fraud_pipelines/generation/transactions.py`
-- [ ] T075 [US4] Implement raw snapshot writing and fingerprinted bronze manifest creation in `pipelines/src/fraud_pipelines/generation/write.py`
-- [ ] T076 [P] [US4] Implement reusable data-quality rules and quarantine reasons in `pipelines/src/fraud_pipelines/jobs/validation.py`
-- [ ] T077 [US4] Implement Spark joins and point-in-time window features without Python UDFs in `pipelines/src/fraud_pipelines/jobs/features.py`
-- [ ] T078 [US4] Implement partitioned Parquet output and dataset manifest hashing in `pipelines/src/fraud_pipelines/jobs/manifests.py`
-- [ ] T079 [US4] Implement chronological train, validation, and test assignment in `pipelines/src/fraud_pipelines/training/splits.py`
-- [ ] T080 [US4] Implement logistic baseline and XGBoost training with class weighting and early stopping in `pipelines/src/fraud_pipelines/training/train.py`
-- [ ] T081 [US4] Implement PR-AUC evaluation, threshold trade-off reporting, and alert volume in `pipelines/src/fraud_pipelines/training/evaluate.py`
-- [ ] T082 [US4] Implement JSON artifact, SHA-256, feature version, dataset ID, and metrics export in `pipelines/src/fraud_pipelines/training/artifacts.py`
-- [ ] T083 [US4] Implement processing-run manifests and sanitized failure summaries in `pipelines/src/fraud_pipelines/jobs/run.py`
-- [ ] T084 [US4] Wire generator, features, training, evaluation, and activation commands into `pipelines/src/fraud_pipelines/cli.py`
+- [X] T072 [P] [US4] Define strict Spark schemas for accounts, merchants, and transactions in `pipelines/src/fraud_pipelines/schemas/raw.py`
+- [X] T073 [P] [US4] Implement deterministic account and merchant generation in `pipelines/src/fraud_pipelines/generation/entities.py`
+- [X] T074 [US4] Implement chronological transaction generation with planted fraud scenarios in `pipelines/src/fraud_pipelines/generation/transactions.py`
+- [X] T075 [US4] Implement raw snapshot writing and fingerprinted bronze manifest creation in `pipelines/src/fraud_pipelines/generation/write.py`
+- [X] T076 [P] [US4] Implement reusable data-quality rules and quarantine reasons in `pipelines/src/fraud_pipelines/jobs/validation.py`
+- [X] T077 [US4] Implement Spark joins and point-in-time window features without Python UDFs in `pipelines/src/fraud_pipelines/jobs/features.py`
+- [X] T078 [US4] Implement partitioned Parquet output and dataset manifest hashing in `pipelines/src/fraud_pipelines/jobs/manifests.py`
+- [X] T079 [US4] Implement chronological train, validation, and test assignment in `pipelines/src/fraud_pipelines/training/splits.py`
+- [X] T080 [US4] Implement logistic baseline and XGBoost training with class weighting and early stopping in `pipelines/src/fraud_pipelines/training/train.py`
+- [X] T081 [US4] Implement PR-AUC evaluation, threshold trade-off reporting, and alert volume in `pipelines/src/fraud_pipelines/training/evaluate.py`
+- [X] T082 [US4] Implement JSON artifact, SHA-256, feature version, dataset ID, and metrics export in `pipelines/src/fraud_pipelines/training/artifacts.py`
+- [X] T083 [US4] Implement processing-run manifests and sanitized failure summaries in `pipelines/src/fraud_pipelines/jobs/run.py`
+- [X] T084 [US4] Wire generator, features, training, evaluation, and activation commands into `pipelines/src/fraud_pipelines/cli.py`
 
 **Checkpoint**: User Story 4 meets SC-006 and provides the artifact consumed by User Story 1. For
 delivery sequencing, a small checked test artifact may unblock US1; the real trained artifact replaces
