@@ -101,24 +101,24 @@ the original score plus complete history remain unchanged.
 
 ### Tests
 
-- [ ] T043 [P] [US2] Add alert filtering, cursor ordering, and detail contract tests in `backend/tests/contract/test_alerts.py`
-- [ ] T044 [P] [US2] Add alert state transition and append-only audit tests in `backend/tests/integration/test_alert_reviews.py`
-- [ ] T045 [P] [US2] Add alert queue loading, empty, error, and filtering tests in `frontend/src/features/alerts/AlertQueue.test.tsx`
-- [ ] T046 [P] [US2] Add explanation disclaimer and decision-history tests in `frontend/src/features/alerts/AlertDetail.test.tsx`
+- [X] T043 [P] [US2] Add alert filtering, cursor ordering, and detail contract tests in `backend/tests/contract/test_alerts.py`
+- [X] T044 [P] [US2] Add alert state transition and append-only audit tests in `backend/tests/integration/test_alert_reviews.py`
+- [X] T045 [P] [US2] Add alert queue loading, empty, error, and filtering tests in `frontend/src/features/alerts/AlertQueue.test.tsx`
+- [X] T046 [P] [US2] Add explanation disclaimer and decision-history tests in `frontend/src/features/alerts/AlertDetail.test.tsx`
 
 ### Implementation
 
-- [ ] T047 [P] [US2] Implement review decision and alert history tables in `backend/src/fraud_api/db/review_models.py`
-- [ ] T048 [US2] Add review workflow schema migration in `backend/alembic/versions/0002_alert_reviews.py`
-- [ ] T049 [P] [US2] Implement alert list, detail, history, and decision schemas in `backend/src/fraud_api/schemas/alerts.py`
-- [ ] T050 [US2] Implement risk-descending cursor queries and filters in `backend/src/fraud_api/repositories/alerts.py`
-- [ ] T051 [US2] Implement allowed alert transitions and append-only decisions in `backend/src/fraud_api/services/reviews.py`
-- [ ] T052 [US2] Implement alert list, detail, status, and decision routes in `backend/src/fraud_api/api/routes/alerts.py`
-- [ ] T053 [P] [US2] Implement the typed HTTP client and error mapping in `frontend/src/api/client.ts`
-- [ ] T054 [P] [US2] Implement analyst application shell and navigation in `frontend/src/routes/AppRouter.tsx`
-- [ ] T055 [US2] Implement risk queue filters, cursor pagination, empty state, and error state in `frontend/src/features/alerts/AlertQueue.tsx`
-- [ ] T056 [US2] Implement transaction context, factor directions, disclaimer, and audit history in `frontend/src/features/alerts/AlertDetail.tsx`
-- [ ] T057 [US2] Implement status and decision controls with pending and failure feedback in `frontend/src/features/alerts/ReviewControls.tsx`
+- [X] T047 [P] [US2] Implement review decision and alert history tables in `backend/src/fraud_api/db/review_models.py`
+- [X] T048 [US2] Add review workflow schema migration in `backend/alembic/versions/0002_alert_reviews.py`
+- [X] T049 [P] [US2] Implement alert list, detail, history, and decision schemas in `backend/src/fraud_api/schemas/alerts.py`
+- [X] T050 [US2] Implement risk-descending cursor queries and filters in `backend/src/fraud_api/repositories/alerts.py`
+- [X] T051 [US2] Implement allowed alert transitions and append-only decisions in `backend/src/fraud_api/services/reviews.py`
+- [X] T052 [US2] Implement alert list, detail, status, and decision routes in `backend/src/fraud_api/api/routes/alerts.py`
+- [X] T053 [P] [US2] Implement the typed HTTP client and error mapping in `frontend/src/api/client.ts`
+- [X] T054 [P] [US2] Implement analyst application shell and navigation in `frontend/src/routes/AppRouter.tsx`
+- [X] T055 [US2] Implement risk queue filters, cursor pagination, empty state, and error state in `frontend/src/features/alerts/AlertQueue.tsx`
+- [X] T056 [US2] Implement transaction context, factor directions, disclaimer, and audit history in `frontend/src/features/alerts/AlertDetail.tsx`
+- [X] T057 [US2] Implement status and decision controls with pending and failure feedback in `frontend/src/features/alerts/ReviewControls.tsx`
 
 **Checkpoint**: User Story 2 is independently demonstrable and a scripted analyst completes SC-003.
 

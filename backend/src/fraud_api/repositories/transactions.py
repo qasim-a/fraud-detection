@@ -4,7 +4,7 @@ import hashlib
 import json
 import uuid
 from dataclasses import dataclass
-from datetime import timedelta
+from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 
 from sqlalchemy import Select, func, select
@@ -24,6 +24,7 @@ from fraud_api.db.models import (
     TransactionRecord,
     TransactionStatus,
 )
+from fraud_api.db.review_models import AlertHistoryRecord, HistoryEventType
 from fraud_api.features.online import OnlineFeatureContext
 from fraud_api.models.loader import ModelBundle
 from fraud_api.schemas.transactions import (
@@ -181,8 +182,24 @@ def persist_score(
     session.flush()
     alert: AlertRecord | None = None
     if outcome.creates_alert:
-        alert = AlertRecord(fraud_score_id=score.id, status=AlertStatus.OPEN)
+        created_at = datetime.now(UTC)
+        alert = AlertRecord(
+            fraud_score_id=score.id,
+            status=AlertStatus.OPEN,
+            created_at=created_at,
+            updated_at=created_at,
+        )
         session.add(alert)
+        session.flush()
+        session.add(
+            AlertHistoryRecord(
+                alert_id=alert.id,
+                event_type=HistoryEventType.CREATED,
+                to_status=AlertStatus.OPEN,
+                actor_ref="system",
+                created_at=created_at,
+            )
+        )
         session.flush()
     return score, alert
 

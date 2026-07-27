@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
+from fraud_api.db import review_models as review_models  # noqa: F401
 from fraud_api.db.models import Account, Merchant
 from fraud_api.db.seed import seed_reference_data
 from fraud_api.db.session import Base
