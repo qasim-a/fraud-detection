@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 
 from fraud_api.api.errors import register_exception_handlers
 from fraud_api.api.routes.alerts import router as alerts_router
+from fraud_api.api.routes.dashboard import router as dashboard_router
 from fraud_api.api.routes.transactions import router as transactions_router
 from fraud_api.core.config import Settings, get_settings
 from fraud_api.core.logging import configure_logging
@@ -22,6 +23,7 @@ def create_app() -> FastAPI:
     application = FastAPI(title="Fraud Review API", version="0.1.0")
     register_exception_handlers(application)
     application.include_router(alerts_router, prefix="/api/v1")
+    application.include_router(dashboard_router, prefix="/api/v1")
     application.include_router(transactions_router, prefix="/api/v1")
 
     def _health(

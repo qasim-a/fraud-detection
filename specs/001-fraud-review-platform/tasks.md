@@ -133,18 +133,18 @@ outcome, and model metric with source records.
 
 ### Tests
 
-- [ ] T058 [P] [US3] Add dashboard range and model summary contract tests in `backend/tests/contract/test_dashboard.py`
-- [ ] T059 [P] [US3] Add aggregate reconciliation and unlabeled-record tests in `backend/tests/integration/test_dashboard_metrics.py`
-- [ ] T060 [P] [US3] Add dashboard loading, empty, failure, and chart accessibility tests in `frontend/src/features/dashboard/Dashboard.test.tsx`
+- [X] T058 [P] [US3] Add dashboard range and model summary contract tests in `backend/tests/contract/test_dashboard.py`
+- [X] T059 [P] [US3] Add aggregate reconciliation and unlabeled-record tests in `backend/tests/integration/test_dashboard_metrics.py`
+- [X] T060 [P] [US3] Add dashboard loading, empty, failure, and chart accessibility tests in `frontend/src/features/dashboard/Dashboard.test.tsx`
 
 ### Implementation
 
-- [ ] T061 [P] [US3] Implement UTC range, aggregate, series, and model metric schemas in `backend/src/fraud_api/schemas/dashboard.py`
-- [ ] T062 [US3] Implement transaction, alert, amount, band, outcome, and time-bucket queries in `backend/src/fraud_api/repositories/dashboard.py`
-- [ ] T063 [US3] Implement dashboard and active-model routes in `backend/src/fraud_api/api/routes/dashboard.py`
-- [ ] T064 [P] [US3] Implement reusable accessible metric cards and chart states in `frontend/src/features/dashboard/components.tsx`
-- [ ] T065 [US3] Implement range selection, summary cards, volume trend, risk distribution, and outcomes in `frontend/src/features/dashboard/Dashboard.tsx`
-- [ ] T066 [US3] Implement model identity, threshold, confusion counts, precision, recall, PR-AUC, and no-label state in `frontend/src/features/dashboard/ModelPerformance.tsx`
+- [X] T061 [P] [US3] Implement UTC range, aggregate, series, and model metric schemas in `backend/src/fraud_api/schemas/dashboard.py`
+- [X] T062 [US3] Implement transaction, alert, amount, band, outcome, and time-bucket queries in `backend/src/fraud_api/repositories/dashboard.py`
+- [X] T063 [US3] Implement dashboard and active-model routes in `backend/src/fraud_api/api/routes/dashboard.py`
+- [X] T064 [P] [US3] Implement reusable accessible metric cards and chart states in `frontend/src/features/dashboard/components.tsx`
+- [X] T065 [US3] Implement range selection, summary cards, volume trend, risk distribution, and outcomes in `frontend/src/features/dashboard/Dashboard.tsx`
+- [X] T066 [US3] Implement model identity, threshold, confusion counts, precision, recall, PR-AUC, and no-label state in `frontend/src/features/dashboard/ModelPerformance.tsx`
 
 **Checkpoint**: User Story 3 meets SC-004 and SC-005 against fixed reconciliation fixtures.
 

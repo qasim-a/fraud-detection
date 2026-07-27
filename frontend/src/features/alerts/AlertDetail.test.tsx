@@ -9,7 +9,7 @@ describe("AlertDetail", () => {
   it("labels factors as influence and preserves decision history", async () => {
     const client: FraudApi = {
       listAlerts: vi.fn(), getAlert: vi.fn().mockResolvedValue(alertDetail),
-      updateAlertStatus: vi.fn(), createDecision: vi.fn(),
+      updateAlertStatus: vi.fn(), createDecision: vi.fn(), getDashboard: vi.fn(), getActiveModel: vi.fn(),
     };
     render(<MemoryRouter><AlertDetail client={client} alertId="a1" /></MemoryRouter>);
     expect(await screen.findByText(/not proof or cause of fraud/i)).toBeVisible();

@@ -190,6 +190,12 @@ paths:
                 $ref: "#/components/schemas/ModelSummary"
         "404":
           $ref: "#/components/responses/NotFound"
+        "409":
+          description: Active model has no complete labeled evaluation
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
 components:
   parameters:
     TransactionId:

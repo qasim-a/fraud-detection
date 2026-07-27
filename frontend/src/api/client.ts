@@ -3,6 +3,8 @@ import type {
   AlertPage,
   AlertStatus,
   AlertSummary,
+  DashboardSummary,
+  ModelSummary,
   Problem,
   ReviewDecision,
   ReviewDecisionInput,
@@ -46,6 +48,8 @@ export interface FraudApi {
   getAlert(id: string): Promise<AlertDetail>;
   updateAlertStatus(id: string, status: AlertStatus): Promise<AlertSummary>;
   createDecision(id: string, input: ReviewDecisionInput): Promise<ReviewDecision>;
+  getDashboard(start: string, end: string): Promise<DashboardSummary>;
+  getActiveModel(): Promise<ModelSummary>;
 }
 
 export const apiClient: FraudApi = {
@@ -67,4 +71,9 @@ export const apiClient: FraudApi = {
       method: "POST",
       body: JSON.stringify(input),
     }),
+  getDashboard: (start, end) => {
+    const parameters = new URLSearchParams({ start, end });
+    return request<DashboardSummary>(`/dashboard/summary?${parameters.toString()}`);
+  },
+  getActiveModel: () => request<ModelSummary>("/models/active"),
 };

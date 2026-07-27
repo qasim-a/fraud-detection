@@ -6,7 +6,7 @@ import { AlertQueue } from "./AlertQueue";
 import { alertDetail } from "./testData";
 
 function client(listAlerts: FraudApi["listAlerts"]): FraudApi {
-  return { listAlerts, getAlert: vi.fn(), updateAlertStatus: vi.fn(), createDecision: vi.fn() };
+  return { listAlerts, getAlert: vi.fn(), updateAlertStatus: vi.fn(), createDecision: vi.fn(), getDashboard: vi.fn(), getActiveModel: vi.fn() };
 }
 
 describe("AlertQueue", () => {
