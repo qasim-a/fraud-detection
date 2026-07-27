@@ -1,6 +1,6 @@
 PNPM ?= pnpm
 
-.PHONY: bootstrap check lint test test-integration test-e2e compose-config \
+.PHONY: bootstrap check lint typecheck build test test-contract test-integration test-e2e compose-config \
 	generate-demo features verify-features train evaluate activate-model \
 	seed-operational-data smoke-score benchmark migrate
 
@@ -9,17 +9,27 @@ bootstrap:
 	uv sync --project pipelines --all-groups
 	$(PNPM) --dir frontend install
 
-check: lint test compose-config
+check: lint typecheck test test-contract build compose-config
 
 lint:
 	uv run --project backend ruff check backend/src backend/tests
 	uv run --project pipelines ruff check pipelines/src pipelines/tests
 	$(PNPM) --dir frontend run lint
 
+typecheck:
+	uv run --project backend pyright backend/src
+	uv run --project pipelines pyright pipelines/src
+
+build:
+	$(PNPM) --dir frontend run build
+
 test:
 	uv run --project backend pytest backend/tests/unit
 	uv run --project pipelines pytest pipelines/tests/unit
 	$(PNPM) --dir frontend test
+
+test-contract:
+	uv run --project backend pytest backend/tests/contract
 
 test-integration:
 	uv run --project backend pytest -m integration backend/tests
@@ -59,4 +69,4 @@ benchmark:
 	uv run --project pipelines fraud-pipelines benchmark --seed $(or $(SEED),20260727) --rows $(or $(ROWS),1000000)
 
 migrate:
-	uv run --project backend alembic upgrade head
+	uv run --project backend alembic -c backend/alembic.ini upgrade head

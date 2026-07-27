@@ -23,7 +23,9 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+  "openapi-spec-validator>=0.7,<1",
   "pyright>=1.1.403",
+  "pyyaml>=6.0,<7",
   "pytest>=8.4,<9",
   "pytest-cov>=6.2,<7",
   "ruff>=0.12,<1",

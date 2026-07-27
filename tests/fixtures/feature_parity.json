@@ -1,0 +1,49 @@
+{
+  "feature_version": "1.0.0",
+  "cases": [
+    {
+      "name": "typical-domestic-purchase",
+      "input": {
+        "amount": 125.0,
+        "event_time": "2026-07-27T14:30:00Z",
+        "account_tx_count_1h": 2,
+        "account_avg_amount_30d": 100.0,
+        "account_country": "US",
+        "transaction_country": "US",
+        "merchant_risk_score": 0.15
+      },
+      "expected": {
+        "amount": 125.0,
+        "hour_sin": -0.608761,
+        "hour_cos": -0.793353,
+        "account_tx_count_1h": 2,
+        "account_avg_amount_30d": 100.0,
+        "amount_to_avg_ratio": 1.25,
+        "country_mismatch": 0,
+        "merchant_risk_score": 0.15
+      }
+    },
+    {
+      "name": "first-international-purchase",
+      "input": {
+        "amount": 800.0,
+        "event_time": "2026-07-27T03:00:00Z",
+        "account_tx_count_1h": 0,
+        "account_avg_amount_30d": 0.0,
+        "account_country": "US",
+        "transaction_country": "GB",
+        "merchant_risk_score": 0.8
+      },
+      "expected": {
+        "amount": 800.0,
+        "hour_sin": 0.707107,
+        "hour_cos": 0.707107,
+        "account_tx_count_1h": 0,
+        "account_avg_amount_30d": 0.0,
+        "amount_to_avg_ratio": 1.0,
+        "country_mismatch": 1,
+        "merchant_risk_score": 0.8
+      }
+    }
+  ]
+}

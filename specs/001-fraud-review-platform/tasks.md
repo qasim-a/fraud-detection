@@ -34,21 +34,21 @@ must precede implementation at service boundaries.
 **Purpose**: Build shared contracts, configuration, persistence, logging, and reproducibility support
 that block every user story.
 
-- [ ] T011 Add validated API settings and secret loading in `backend/src/fraud_api/core/config.py`
-- [ ] T012 [P] Add structured JSON logging with sensitive-field redaction in `backend/src/fraud_api/core/logging.py`
-- [ ] T013 [P] Add pipeline settings, deterministic seed handling, and artifact paths in `pipelines/src/fraud_pipelines/config.py`
-- [ ] T014 Define shared feature names, types, bounds, defaults, and semantic version in `backend/src/fraud_api/features/definitions.py`
-- [ ] T015 Mirror the registered feature contract for Spark jobs in `pipelines/src/fraud_pipelines/features/definitions.py`
-- [ ] T016 Add golden feature fixtures shared across runtimes in `tests/fixtures/feature_parity.json`
-- [ ] T017 Configure SQLAlchemy engine and transaction-scoped sessions in `backend/src/fraud_api/db/session.py`
-- [ ] T018 Create Alembic configuration and migration environment in `backend/alembic/env.py`
-- [ ] T019 Implement RFC 9457-style problem responses and exception mapping in `backend/src/fraud_api/api/errors.py`
-- [ ] T020 Generate or hand-maintain frontend API types from the contract in `frontend/src/api/schema.ts`
-- [ ] T021 Add API application startup, versioned routing, and health reporting in `backend/src/fraud_api/main.py`
-- [ ] T022 Add API and database health integration tests in `backend/tests/integration/test_health.py`
-- [ ] T023 Add Spark local-session and temporary artifact fixtures in `pipelines/tests/conftest.py`
-- [ ] T024 Add PostgreSQL initialization and least-privilege application roles in `infra/postgres/init.sql`
-- [ ] T025 Validate the OpenAPI document and generated application schema in `backend/tests/contract/test_openapi.py`
+- [X] T011 Add validated API settings and secret loading in `backend/src/fraud_api/core/config.py`
+- [X] T012 [P] Add structured JSON logging with sensitive-field redaction in `backend/src/fraud_api/core/logging.py`
+- [X] T013 [P] Add pipeline settings, deterministic seed handling, and artifact paths in `pipelines/src/fraud_pipelines/config.py`
+- [X] T014 Define shared feature names, types, bounds, defaults, and semantic version in `backend/src/fraud_api/features/definitions.py`
+- [X] T015 Mirror the registered feature contract for Spark jobs in `pipelines/src/fraud_pipelines/features/definitions.py`
+- [X] T016 Add golden feature fixtures shared across runtimes in `tests/fixtures/feature_parity.json`
+- [X] T017 Configure SQLAlchemy engine and transaction-scoped sessions in `backend/src/fraud_api/db/session.py`
+- [X] T018 Create Alembic configuration and migration environment in `backend/alembic/env.py`
+- [X] T019 Implement RFC 9457-style problem responses and exception mapping in `backend/src/fraud_api/api/errors.py`
+- [X] T020 Generate or hand-maintain frontend API types from the contract in `frontend/src/api/schema.ts`
+- [X] T021 Add API application startup, versioned routing, and health reporting in `backend/src/fraud_api/main.py`
+- [X] T022 Add API and database health integration tests in `backend/tests/integration/test_health.py`
+- [X] T023 Add Spark local-session and temporary artifact fixtures in `pipelines/tests/conftest.py`
+- [X] T024 Add PostgreSQL initialization and least-privilege application roles in `infra/postgres/init.sql`
+- [X] T025 Validate the OpenAPI document and generated application schema in `backend/tests/contract/test_openapi.py`
 
 **Checkpoint**: Services start, database migrations run, health is truthful, and schema validation
 passes before story work begins.
